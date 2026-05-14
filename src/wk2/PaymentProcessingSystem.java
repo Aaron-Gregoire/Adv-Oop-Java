@@ -13,6 +13,18 @@ Use an abstract class when:
  */
 package wk2;
  /*
+ Interface: what to do
+ Abstract class: shared behavior
+ Polymorphism: same type different behavior
+ Overloading: same method different parameters
+
+ Use an interface when:
+    you want to define a contract for unrelated classes
+    you need multiple inheritance
+ Use an abstract class when:
+    you want to code among closely related classes
+    you need constructors or instance variables
+
 Interface - 100% abstraction traditionally, meaning they define what to do, not how to do it. A contract per se
 Cannot be instantiated
 All variables are implicitly 'public static final'; no instance variables
