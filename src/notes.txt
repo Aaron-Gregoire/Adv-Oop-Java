@@ -1,0 +1,222 @@
+Week 1.
+# Java Practice Program — Study Notes
+
+---
+
+## 1. Static vs Instance Variables
+
+```java
+static int staticCounter = 0;  // belongs to the CLASS
+int instanceCounter = 0;        // belongs to each OBJECT
+```
+
+### What's the difference?
+- A **static variable** is shared across every object of the class. No matter how many `PracticeProgram` objects you create, there is only ever **one** `staticCounter`.
+- An **instance variable** belongs to each individual object. Every time you create a new `PracticeProgram`, it gets its **own** `instanceCounter`.
+
+### Why does this matter?
+If you create 3 objects, `staticCounter` would be 3 (incremented each time), but each object's `instanceCounter` would be 1 (only incremented once per object).
+
+---
+
+## 2. Constructors
+
+```java
+// No-arg constructor (no parameters)
+public PracticeProgram() {
+    this.instanceCounter++;
+    PracticeProgram.staticCounter++;
+}
+
+// Parameterized constructor
+public PracticeProgram(int staticCounter, int instanceCounter) {
+    this.instanceCounter++;
+    PracticeProgram.staticCounter++;
+}
+```
+
+### What is a constructor?
+A constructor runs automatically when you create a new object with `new PracticeProgram()`. It sets up the object.
+
+### Why use `this.instanceCounter`?
+When a parameter has the **same name** as an instance variable, Java gets confused. `this.instanceCounter` tells Java "I mean the instance variable belonging to this object", not the parameter.
+
+### Why use `PracticeProgram.staticCounter`?
+Since `staticCounter` belongs to the class (not an object), you reference it using the **class name** instead of `this`.
+
+### Why have two constructors?
+This is called **constructor overloading**. Java picks the right constructor based on what arguments you pass in:
+- `new PracticeProgram()` → uses the no-arg constructor
+- `new PracticeProgram(0, 0)` → uses the parameterized constructor
+
+### Why did we need a no-arg constructor?
+Once you define a constructor with parameters, Java no longer provides a default no-arg constructor. Any code calling `new PracticeProgram()` would get a red error line until you explicitly add the no-arg constructor.
+
+---
+
+## 3. Static Methods
+
+```java
+public static int add(int a, int b) {
+    return (a + b);
+}
+
+public static double average(double... numbers) { ... }
+
+public static int[] generateSquares(int n) { ... }
+```
+
+### What is a static method?
+A static method belongs to the **class**, not an object. You don't need to create an object to call it.
+
+### How to call a static method:
+```java
+PracticeProgram.add(5, 10);
+PracticeProgram.average(10, 20, 30, 40);
+PracticeProgram.generateSquares(5);
+```
+
+### What are varargs (`double... numbers`)?
+Varargs (variable arguments) let you pass **any number of arguments** to a method. Java collects them into an array automatically. That's why `average(10, 20, 30, 40)` works even though the method only has one parameter.
+
+### Generating squares — why `n + 1`?
+```java
+int[] squares = new int[n + 1];
+for (int i = 0; i <= n; i++) {
+    squares[i] = i * i;
+}
+```
+If n = 5, you need spots for 0, 1, 2, 3, 4, 5 — that's 6 elements, so the array size is `n + 1`. The square of `i` is `i * i`, not `i * 2` (which would just double it).
+
+---
+
+## 4. Instance Methods
+
+```java
+public void displayMessage(String message) { ... }
+public String concatenate(String a, String b) { ... }
+public int findMax(int[] numbers) { ... }
+public int sumList(ArrayList<Integer> list) { ... }
+```
+
+### What is an instance method?
+An instance method belongs to a **specific object**. You must create an object first, then call the method on it.
+
+### How to call an instance method:
+```java
+PracticeProgram demo = new PracticeProgram();
+demo.displayMessage("Welcome to the course");
+demo.concatenate("Hello ", "World!");
+demo.findMax(nums);
+demo.sumList(list);
+```
+
+---
+
+## 5. Finding the Maximum — Why Initialize Correctly
+
+```java
+public int findMax(int[] numbers) {
+    int max = numbers[0];  // start with the first element
+    for (int num : numbers) {
+        if (num >= max) {
+            max = num;
+        }
+    }
+    return max;
+}
+```
+
+### Why `int max = numbers[0]` and not `int max = 0`?
+If all numbers in the array are negative (e.g. `{-5, -3, -8}`), starting with `max = 0` would never get updated because no number is greater than 0. The method would return `0`, which isn't even in the array — a **silent bug**.
+
+Starting with `numbers[0]` guarantees you begin with a real value from the array.
+
+---
+
+## 6. Method Overloading
+
+```java
+public int multiply(int a, int b) {
+    return a * b;
+}
+
+public double multiply(double a, double b) {
+    return a * b;
+}
+```
+
+### What is method overloading?
+Writing multiple methods with the **same name** but **different parameter types**. Java automatically picks the right version based on what you pass in:
+- `demo.multiply(3, 4)` → uses the `int` version → returns `12`
+- `demo.multiply(2.5, 3.5)` → uses the `double` version → returns `8.75`
+
+---
+
+## 7. Arrays vs ArrayLists
+
+| Feature | Array | ArrayList |
+|---|---|---|
+| Size | Fixed at creation | Can grow/shrink |
+| Syntax | `int[] arr = new int[5]` | `ArrayList<Integer> list = new ArrayList<>()` |
+| Adding elements | `arr[0] = value` | `list.add(value)` |
+| Getting size | `arr.length` | `list.size()` |
+
+### When to use which?
+- Use an **array** when you know the exact size upfront (e.g. squares of 0 to n)
+- Use an **ArrayList** when the size might change (e.g. building a list dynamically)
+
+---
+
+## 8. The Main Method — Putting It All Together
+
+```java
+public static void main(String[] args) {
+
+    // Static method calls — use ClassName.methodName()
+    System.out.println("Sum: " + PracticeProgram.add(5, 10));
+    System.out.println("Average: " + PracticeProgram.average(10, 20, 30, 40));
+
+    int[] squares = PracticeProgram.generateSquares(5);
+    System.out.println("Squares: " + Arrays.toString(squares));
+
+    String[] words = {"java", "advanced", "program"};
+    ArrayList<String> upperWords = PracticeProgram.convertToUpper(words);
+    System.out.println("Uppercase List: " + upperWords);
+
+    // Instance method calls — create object first, then use objectName.methodName()
+    PracticeProgram demo = new PracticeProgram();
+    demo.displayMessage("Welcome to the course");
+    System.out.println("Concatenation: " + demo.concatenate("Hello ", "World!"));
+
+    int[] nums = {3, 7, 2, 9, 5};
+    System.out.println("Max: " + demo.findMax(nums));
+
+    ArrayList<Integer> list = new ArrayList<>();
+    list.add(10);
+    list.add(20);
+    list.add(30);
+    System.out.println("Sum of list: " + demo.sumList(list));
+
+    // Method overloading
+    System.out.println("Multiply int: " + demo.multiply(3, 4));
+    System.out.println("Multiply double: " + demo.multiply(2.5, 3.5));
+
+    // Creating a new object
+    PracticeProgram newObj = new PracticeProgram();
+    System.out.println("New Object Instance Counter: " + newObj.instanceCounter);
+    System.out.println("Static Counter: " + PracticeProgram.staticCounter);
+}
+```
+
+---
+
+## Key Takeaways
+
+1. **Static** = belongs to the class. Call with `ClassName.method()`. Shared by all objects.
+2. **Instance** = belongs to each object. Call with `objectName.method()`. Each object has its own copy.
+3. **Constructors** run when you create a new object with `new`. You can have multiple constructors (overloading).
+4. **`this`** refers to the current object's variable when there's a naming conflict with a parameter.
+5. **Method overloading** = same method name, different parameter types. Java picks the right one automatically.
+6. **Always initialize variables** before using them. Choose starting values carefully to avoid silent bugs.
+7. **Arrays** have a fixed size. **ArrayLists** can grow and shrink dynamically.

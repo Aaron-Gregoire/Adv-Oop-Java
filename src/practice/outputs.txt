@@ -1,0 +1,12 @@
+sum: 15
+average 25.0
+squares: [0, 1, 4, 9, 16]
+uppercase list: [JAVA, ADVANCED, PROGRAM]
+message: Hello from instance method
+Concatenation: Hello World!
+Max: 9
+Sum of list: 60
+multiply int: 12
+multiply double: 8.75
+static counter: 2
+new object instance counter: 1
