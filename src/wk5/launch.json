@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run JavaFX",
+      "request": "launch",
+      "mainClass": "Week5GUI",
+      "vmArgs": "--module-path \"C:/openjfx-26_windows-x64_bin-sdk/javafx-sdk-26/lib\" --add-modules javafx.controls --enable-native-access=javafx.graphics"
+    }
+  ]
+}
