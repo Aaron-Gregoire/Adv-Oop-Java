@@ -103,7 +103,7 @@ public class PracticeAssignmentMain {
         //Create a Car object with parameters "Toyota", "Corolla", 50, 4
         //Create a Motorcycle with parameters "Harley-Davidson", "Iron 883", 15, false
         //Create a Truck with parameters "Volvo", "FH16", 200, 20
-        Vehicle v1 = new Car("Toyota", "Carolla", 50, 4);
+        Vehicle v1 = new Car("Toyota", "Corolla", 50, 4);
         Vehicle v2 = new Motorcycle("Harley-Davidson", "Iron 883",15,false);
         Vehicle v3 = new Truck("Volvo", "FH16", 200, 20);
         Vehicle[] fleet = {v1, v2, v3};
