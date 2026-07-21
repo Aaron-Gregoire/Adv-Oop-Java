@@ -2,5 +2,7 @@
 <project version="4">
   <component name="DataSourcePerFileMappings">
     <file url="file://$PROJECT_DIR$/src/practice/JdbcPractice.java" value="85c7417e-09b4-432b-bf5e-16636f0154b4" />
+    <file url="file://$PROJECT_DIR$/src/wk10/LibraryDatabaseAssignment.java" value="85c7417e-09b4-432b-bf5e-16636f0154b4" />
+    <file url="file://$PROJECT_DIR$/src/wk9/EmployeeDAO.java" value="85c7417e-09b4-432b-bf5e-16636f0154b4" />
   </component>
 </project>
